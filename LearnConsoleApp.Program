@@ -1,36 +1,51 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 namespace LearnConsoleApp
 {
-    class Program
+    public class Comments
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            int n = Power(10, 3); //power will calculate 10^2
-            Console.WriteLine(n);
-            /*Console.WriteLine will display the variable 'n'
-             * which holdes calulated value of 10^2*/
-
+            ArrayList list = GetPrimeNumTill(1000); //gets all the prime numbers till 100 in list
+            foreach (int i in list)
+            {
+                /*print all the prime numbers till 100
+                 * all the number in list are primes till 100*/
+                Console.Write(i+" ");
+            }
         }
-
         /// <summary>
-        /// Returns specific number raised to the specific power
+        /// Returns all the prime numbers till a certain number
         /// </summary>
-        /// <param name="a">integer number</param>
-        /// <param name="b">integer power</param>
-        /// <returns>integer value of a to the power b</returns>
-        static public int Power(int a, int b)
+        /// <param name="n">limit of the number till primes are required.</param>
+        /// <returns>List of primes in list till a certain number</returns>
+        /// <remarks>The method is based on seive of sieve of eratosthenes</remarks>
+        static ArrayList GetPrimeNumTill(int n)
         {
-            if (b == 0)
+            /// <value>Create a bool array called to see which value 
+            /// index that array is prime or not prime</value>
+            bool[] seive = new bool[n+1];
+            /// <exception cref="System.OverflowException"> Thrown when n > maximum size of a bool array in c# 
+            /// <seealso cref="Math.Sqrt(int)"/>
+            for (int i = 2; i <= Math.Sqrt(n); i++)
             {
-                return 1;
+                for(int j = 2; i * j <= n; j++)
+                {
+                    seive[i * j] = true; 
+                }
             }
-            int n = Power(a, b / 2);
-            if (b % 2 == 0)
+            ArrayList list = new ArrayList();
+            for(int i = 2; i < seive.Length; i++)
             {
-                return n * n;
+                if (!seive[i])
+                {
+                    list.Add(i);
+                }
             }
-            return n * n * a;
+            return list;
         }
     }
 }
