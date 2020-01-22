@@ -1,0 +1,36 @@
+using System;
+
+namespace LearnConsoleApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Power(10, 2); //power will calculate 10^2
+            Console.WriteLine(n);
+            /*Console.WriteLine will display the variable 'n'
+             * which holdes calulated value of 10^2*/
+
+        }
+
+        /// <summary>
+        /// Returns specific number raised to the specific power
+        /// </summary>
+        /// <param name="a">integer number</param>
+        /// <param name="b">integer power</param>
+        /// <returns>integer value of a to the power b</returns>
+        static public int Power(int a, int b)
+        {
+            if (b == 0)
+            {
+                return 1;
+            }
+            int n = Power(a, b / 2);
+            if (a % 2 == 0)
+            {
+                return n;
+            }
+            return n * a;
+        }
+    }
+}
